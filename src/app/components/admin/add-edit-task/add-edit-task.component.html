@@ -1,0 +1,171 @@
+<nav class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+  <a href="/admin/dashboard" class="text-2xl font-bold hover:underline">
+    TaskManagePortal
+  </a>
+  <button
+    class="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition"
+    (click)="logout()"
+  >
+    Logout
+  </button>
+</nav>
+
+<div class="min-h-screen bg-gray-100 flex items-center justify-center">
+  <form
+    [formGroup]="taskForm"
+    class="w-full max-w-lg bg-white shadow-md rounded px-8 pt-6 pb-8"
+    (ngSubmit)="onSubmit()"
+  >
+    <!-- Title Field -->
+    <div class="mb-4">
+      <label for="title" class="block text-gray-700 text-sm font-bold mb-2">
+        Title
+      </label>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="Enter task title"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <p
+        *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched"
+        class="text-red-500 text-xs italic"
+      >
+        Title is required.
+      </p>
+    </div>
+
+    <!-- Project Name Field -->
+    <div class="mb-4">
+      <label for="project" class="block text-gray-700 text-sm font-bold mb-2">
+        Project Name
+      </label>
+      <input
+        type="text"
+        id="project"
+        formControlName="project"
+        placeholder="Enter project name"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <p
+        *ngIf="
+          taskForm.get('project')?.invalid && taskForm.get('project')?.touched
+        "
+        class="text-red-500 text-xs italic"
+      >
+        Project name is required.
+      </p>
+    </div>
+
+    <!-- Description Field -->
+    <div class="mb-4">
+      <label
+        for="description"
+        class="block text-gray-700 text-sm font-bold mb-2"
+      >
+        Description
+      </label>
+      <textarea
+        id="description"
+        formControlName="description"
+        placeholder="Enter task description"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      ></textarea>
+      <p
+        *ngIf="
+          taskForm.get('description')?.invalid &&
+          taskForm.get('description')?.touched
+        "
+        class="text-red-500 text-xs italic"
+      >
+        Description is required.
+      </p>
+    </div>
+
+    <!-- Status Field -->
+    <div class="mb-4">
+      <label for="status" class="block text-gray-700 text-sm font-bold mb-2">
+        Status
+      </label>
+      <select
+        id="status"
+        formControlName="status"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      >
+        <option value="">Select Status</option>
+        <option value="pending">Pending</option>
+        <option value="inprogress">In Progress</option>
+        <option value="completed">Completed</option>
+      </select>
+      <p
+        *ngIf="
+          taskForm.get('status')?.invalid && taskForm.get('status')?.touched
+        "
+        class="text-red-500 text-xs italic"
+      >
+        Status is required.
+      </p>
+    </div>
+
+    <!-- Assigned To Field -->
+    <div class="mb-4">
+      <label
+        for="assignedTo"
+        class="block text-gray-700 text-sm font-bold mb-2"
+      >
+        Assigned To
+      </label>
+      <select
+        id="assignedTo"
+        formControlName="assignedTo"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      >
+        <option value="">Select Team Member</option>
+        <option value="bob">Bob User</option>
+        <option value="charlie">Charlie Member</option>
+      </select>
+      <p
+        *ngIf="
+          taskForm.get('assignedTo')?.invalid &&
+          taskForm.get('assignedTo')?.touched
+        "
+        class="text-red-500 text-xs italic"
+      >
+        Assignee is required.
+      </p>
+    </div>
+
+    <!-- Deadline Field -->
+    <div class="mb-4">
+      <label for="deadline" class="block text-gray-700 text-sm font-bold mb-2">
+        Deadline
+      </label>
+      <input
+        type="date"
+        id="deadline"
+        formControlName="deadline"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <p
+        *ngIf="
+          taskForm.get('deadline')?.invalid && taskForm.get('deadline')?.touched
+        "
+        class="text-red-500 text-xs italic"
+      >
+        Deadline is required.
+      </p>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex justify-center">
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+        [disabled]="taskForm.invalid"
+      >
+        Assign Task
+      </button>
+    </div>
+  </form>
+</div>

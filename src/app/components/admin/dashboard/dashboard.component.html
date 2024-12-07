@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Navbar -->
+  <nav
+    class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center"
+  >
+    <a href="/admin/dashboard" class="text-2xl font-bold hover:underline">
+      TaskManagePortal
+    </a>
+    <div class="flex space-x-4">
+      <!-- Add Task Button -->
+      <button
+        class="bg-green-500 px-4 py-2 rounded hover:bg-green-600 transition"
+        (click)="goToAddTask()"
+      >
+        Add Task
+      </button>
+
+      <!-- Logout Button -->
+      <button
+        class="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Table Section -->
+
+  <div class="px-6 py-4">
+    <table
+      class="min-w-full bg-white border border-gray-300 shadow-sm rounded-lg"
+    >
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="py-2 px-4 border-b text-left">Sr. No.</th>
+          <th class="py-2 px-4 border-b text-left">Title</th>
+          <th class="py-2 px-4 border-b text-left">Project</th>
+          <th class="py-2 px-4 border-b text-left">Assigned</th>
+          <th class="py-2 px-4 border-b text-left">Status</th>
+          <th class="py-2 px-4 border-b text-left">Deadline</th>
+          <th class="py-2 px-4 border-b text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let task of tasks; let i = index"
+          (click)="viewTaskDetails(task)"
+          class="hover:bg-gray-100 cursor-pointer"
+        >
+          <td class="py-2 px-4 border-b">{{ i + 1 }}</td>
+          <td class="py-2 px-4 border-b">{{ task.title }}</td>
+          <td class="py-2 px-4 border-b">{{ task.project }}</td>
+          <td class="py-2 px-4 border-b">{{ task.assignedTo }}</td>
+          <td class="py-2 px-4 border-b">
+            {{ task.status }}
+          </td>
+          <td class="py-2 px-4 border-b">{{ task.deadline }}</td>
+          <td class="py-2 px-4 border-b text-center">
+            <button
+              class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+              (click)="deleteTask($event, task)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
