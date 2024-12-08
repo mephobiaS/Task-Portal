@@ -71,7 +71,7 @@ export class AuthService {
     if (user) {
       this.currentUser = JSON.parse(user);
     }
-    return this.currentUser.role;
+    return this.currentUser?.role;
   }
   // Get currently logged-in user
   getLoggedInUser() {

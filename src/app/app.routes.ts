@@ -4,10 +4,8 @@ import { AuthGuard } from './auth.guard';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./components/login/login.component').then(
-        (m) => m.LoginComponent
-      ),
+    pathMatch: 'full',
+    redirectTo: '/login',
   },
   {
     path: 'login',
@@ -25,7 +23,8 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     children: [
       {
         path: 'dashboard',
@@ -67,7 +66,8 @@ export const routes: Routes = [
   },
   {
     path: 'member',
-
+    canActivate: [AuthGuard],
+    data: { role: 'member' },
     children: [
       {
         path: 'member-dashboard',
@@ -92,9 +92,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    loadComponent: () =>
-      import('./components/login/login.component').then(
-        (m) => m.LoginComponent
-      ),
+    redirectTo: '/login',
   },
 ];
