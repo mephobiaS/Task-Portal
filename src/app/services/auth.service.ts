@@ -75,9 +75,6 @@ export class AuthService {
   }
   // Get currently logged-in user
   getLoggedInUser() {
-    // return (
-    //   this.currentUser || JSON.parse(sessionStorage.getItem('user') || '{}')
-    // );
     const user = sessionStorage.getItem('user');
     console.log('getting logged in user:', sessionStorage.getItem('user')); // Debug log
     if (user) {

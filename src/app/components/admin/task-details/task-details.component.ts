@@ -24,11 +24,10 @@ export class TaskDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
-    console.log('Task ID:', taskId);
-
     if (taskId) {
       this.taskService.getTaskById(taskId).subscribe((data) => {
         this.task = data;
+        this.comments = this.task.comments || [];
       });
     }
   }

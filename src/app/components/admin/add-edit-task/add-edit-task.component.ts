@@ -14,7 +14,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class AddEditTaskComponent {
   taskForm: FormGroup;
-
+  todayDate: string = '';
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -27,9 +27,23 @@ export class AddEditTaskComponent {
       description: ['', Validators.required],
       status: ['', Validators.required],
       assignedTo: ['', Validators.required],
-      deadline: ['', Validators.required],
+      deadline: ['', [Validators.required, this.minDateValidator()]],
     });
   }
+
+  // Custom validator for deadline to ensure it is not before today
+  minDateValidator() {
+    return (control: any) => {
+      const today = new Date();
+      const selectedDate = new Date(control.value);
+
+      if (selectedDate < today) {
+        return { minDate: true };
+      }
+      return null;
+    };
+  }
+
   onSubmit(): void {
     if (this.taskForm.invalid) {
       alert('Invalid Form Inputs.');

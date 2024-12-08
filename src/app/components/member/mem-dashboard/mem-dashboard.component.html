@@ -1,1 +1,38 @@
-<p>mem-dashboard works!</p>
+<!-- Navbar -->
+<nav class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+  <h1 class="text-2xl font-bold">{{ userrr }}'s Dashboard (Member)</h1>
+  <button
+    class="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition"
+    (click)="logout()"
+  >
+    Logout
+  </button>
+</nav>
+
+<div class="min-h-screen bg-gray-100 p-6">
+  <!-- Task Table -->
+  <div class="mt-6">
+    <table class="min-w-full bg-white border border-gray-300 shadow rounded-lg">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="py-2 px-4 border-b text-left">Sr. No.</th>
+          <th class="py-2 px-4 border-b text-left">Title</th>
+          <th class="py-2 px-4 border-b text-left">Project</th>
+          <th class="py-2 px-4 border-b text-left">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let task of tasks; let i = index"
+          class="hover:bg-gray-100 cursor-pointer"
+          (click)="viewTask(task.id)"
+        >
+          <td class="py-2 px-4 border-b">{{ i + 1 }}</td>
+          <td class="py-2 px-4 border-b">{{ task.title }}</td>
+          <td class="py-2 px-4 border-b">{{ task.project }}</td>
+          <td class="py-2 px-4 border-b">{{ task.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -80,7 +80,7 @@ export const routes: Routes = [
         data: { role: 'member' },
       },
       {
-        path: 'view/:id',
+        path: 'view-task/:id',
         loadComponent: () =>
           import('./components/member/view-task/view-task.component').then(
             (m) => m.ViewTaskComponent

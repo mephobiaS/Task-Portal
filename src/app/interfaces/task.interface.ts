@@ -5,5 +5,6 @@ export interface Task {
   project: string;
   assignedTo: string;
   status: 'Pending' | 'In Progress' | 'Completed';
-  deadline: Date;
+  deadline: string;
+  comments: string[];
 }
