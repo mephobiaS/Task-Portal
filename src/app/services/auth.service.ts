@@ -18,7 +18,6 @@ export class AuthService {
 
   // Register a new user
   async registerUser(email: string, password: string, role: string = 'member') {
-    // Assign the 'admin' role based on the email or other condition
     if (email === 'alice.admin@example.com') {
       role = 'admin';
     }
@@ -71,7 +70,7 @@ export class AuthService {
     if (user) {
       this.currentUser = JSON.parse(user);
     }
-    return this.currentUser?.role;
+    return this.currentUser?.role; //always return value (null if no role exists to go to unauthorized err page)
   }
   // Get currently logged-in user
   getLoggedInUser() {

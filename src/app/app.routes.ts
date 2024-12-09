@@ -91,7 +91,10 @@ export const routes: Routes = [
     ],
   },
   {
-    path: '**',
-    redirectTo: '/login',
+    path: 'error',
+    loadComponent: () =>
+      import('./components/error-page/error-page.component').then(
+        (m) => m.ErrorPageComponent
+      ),
   },
 ];

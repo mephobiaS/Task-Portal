@@ -34,35 +34,50 @@ export class LoginComponent {
     });
   }
 
-  // Handle form submission
   async onSubmit() {
-    this.errorMessage = ''; // Clear error messages
+    this.errorMessage = ''; // Clear any error messages
 
     if (!this.loginForm.valid) {
       this.errorMessage = 'Please fill in all required fields.';
       return;
     }
 
-    const { email, password } = this.loginForm.value;
-    console.log('Attempting login with:', email, password); // Debug log
+    const { email, password, username } = this.loginForm.value;
+    console.log('Form submitted with:', email, password, username);
 
     try {
-      await this.authService.login(email, password);
+      if (this.mode) {
+        // Register mode
+        console.log('Registering user:', email, username);
+        await this.authService.registerUser(email, password);
 
-      const user = this.authService.getLoggedInUser();
-      console.log('getloggedin user:', user); // Debug log
-      if (user.role === 'admin') {
-        console.log('Navigating to Admin Dashboard'); // Debug log
-        this.router.navigate(['/admin/dashboard']);
-      } else if (user.role === 'member') {
-        console.log('Navigating to member Dashboard'); // Debug log
-        this.router.navigate(['/member/member-dashboard']);
+        // Optional: Login the user immediately after registration
+        console.log('Automatically logging in user after registration.');
+        await this.authService.login(email, password);
+
+        // Navigate to the dashboard based on role
+        const user = this.authService.getLoggedInUser();
+        const role = user.role?.toLowerCase();
+        if (role === 'admin') {
+          this.router.navigate(['/admin/dashboard']);
+        } else if (role === 'member') {
+          this.router.navigate(['/member/member-dashboard']);
+        }
       } else {
-        console.log('Navigating to login'); // Debug log
-        this.router.navigate(['/login']);
+        // Login mode
+        console.log('Logging in user:', email);
+        await this.authService.login(email, password);
+
+        const user = this.authService.getLoggedInUser();
+        const role = user.role?.toLowerCase();
+        if (role === 'admin') {
+          this.router.navigate(['/admin/dashboard']);
+        } else if (role === 'member') {
+          this.router.navigate(['/member/member-dashboard']);
+        }
       }
     } catch (error: any) {
-      console.error('Login error:', error);
+      console.error('Error during form submission:', error);
       this.errorMessage = error.message || 'An error occurred.';
     }
   }
@@ -70,7 +85,7 @@ export class LoginComponent {
   // Toggle between Login and Register mode
   toggleMode() {
     this.mode = !this.mode;
-    this.errorMessage = ''; // Clear any previous error messages
+    this.errorMessage = '';
     if (this.mode) {
       // If switching to Register mode, include the username field
       this.loginForm.addControl(

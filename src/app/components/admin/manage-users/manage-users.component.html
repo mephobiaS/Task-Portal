@@ -1,1 +1,94 @@
-<p>manage-users works!</p>
+<div class="min-h-screen bg-gray-100">
+  <!-- Navbar -->
+  <nav
+    class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center"
+  >
+    <a href="/admin/dashboard" class="text-2xl font-bold hover:underline">
+      TaskManagePortal
+    </a>
+    <div class="flex space-x-4">
+      <button
+        class="bg-blue-500 px-4 py-2 rounded hover:bg-blue-700 transition"
+        (click)="goToDashboard()"
+      >
+        Back to Dashboard
+      </button>
+
+      <!-- Logout Button -->
+      <button
+        class="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <div class="p-4">
+    <form
+      class="mb-6 bg-gray-100 p-4 rounded-md shadow-md"
+      (submit)="addUser($event)"
+    >
+      <h2 class="text-lg font-semibold mb-4">Add New User</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <input
+          type="email"
+          placeholder="Email"
+          class="p-2 border rounded-md"
+          [(ngModel)]="newUser.email"
+          name="email"
+          required
+        />
+        <select
+          class="p-2 border rounded-md"
+          [(ngModel)]="newUser.role"
+          name="role"
+          required
+        >
+          <option value="" disabled selected>Select Role</option>
+          <option value="Admin">Admin</option>
+          <option value="Member">Member</option>
+        </select>
+        <button
+          type="submit"
+          class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+        >
+          Add User
+        </button>
+      </div>
+    </form>
+
+    <table class="w-full border-collapse border border-gray-200">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border p-2">Email</th>
+          <th class="border p-2">Role</th>
+          <th class="border p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td class="border p-2">{{ user.email }}</td>
+          <td class="border p-2">
+            <select
+              class="p-2 border rounded-md"
+              [(ngModel)]="user.role"
+              (change)="updateUserRole(user.uid, user.role)"
+            >
+              <option value="Admin">Admin</option>
+              <option value="Member">Member</option>
+            </select>
+          </td>
+          <td class="border p-2">
+            <button
+              class="bg-red-500 text-white p-1 rounded-md hover:bg-red-600"
+              (click)="deleteUser(user.uid)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
