@@ -1,5 +1,38 @@
 ### TaskManagePortal
 
+By Shreya Ved
+
+##Deployed Link of firebase:- https://todoportal-5d9b4.web.app
+(Please open in incognito for some reason it shows 404 error on chrome page)
+
+##Admin Login Credentials:- 
+email: alice.admin@example.com
+password: password
+
+##Member Login Credentials:- 
+
+#member1
+email: bob.user@example.com
+password: password
+
+#member2
+email: charlie.member@example.com
+password: password
+
+Use ng serve if you wish to clone and run it in VS Code.
+
+
+
+
+
+
+
+
+
+
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
 
 ## Development server
